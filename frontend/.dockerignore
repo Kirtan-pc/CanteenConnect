@@ -1,0 +1,6 @@
+node_modules
+# .env is kept in build context for VITE_* vars at build time
+.git
+.gitignore
+dist
+*.md

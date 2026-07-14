@@ -1,19 +1,78 @@
 @import "tailwindcss";
 
 @theme {
-  --color-primary: #1D6A47;
-  --color-accent: #28A068;
-  --color-background: #F4FAF6;
-  --color-danger: #D85A30;
-  --color-organic: #1D9E75;
-  --font-sans: "Inter", sans-serif;
+  /* Colors - Structured Palette */
+  --color-primary: #15803d; /* emerald-700 */
+  --color-primary-dark: #166534;
+  --color-accent: #f59e0b; /* amber-500 */
+  --color-background: #f8fafc; /* slate-50 */
+  --color-surface: #ffffff;
+  --color-danger: #ef4444;
+  --color-text-main: #0f172a; /* slate-900 */
+  --color-text-muted: #64748b; /* slate-500 */
+  --color-border: #e2e8f0; /* slate-200 */
+
+  /* Typography Scale */
+  --font-sans: "Inter", system-ui, sans-serif;
+  --text-xs: 0.75rem; /* 12px */
+  --text-sm: 0.875rem; /* 14px */
+  --text-base: 1rem; /* 16px */
+  --text-lg: 1.25rem; /* 20px */
+  --text-xl: 1.5rem; /* 24px */
+  --text-2xl: 2rem; /* 32px */
+
+  /* Structural Tokens */
+  --radius-xs: 0.25rem; /* 4px */
+  --radius-md: 0.5rem; /* 8px */
+  --radius-lg: 0.75rem; /* 12px */
+  --radius-xl: 1rem; /* 16px */
+  --radius-full: 9999px;
+
+  /* Animation Tokens */
+  --ease-standard: cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-in: cubic-bezier(0.4, 0, 1, 1);
+  --ease-out: cubic-bezier(0, 0, 0.2, 1);
+  --duration-short: 150ms;
+  --duration-base: 300ms;
+  --duration-long: 500ms;
+
+  /* Shadows */
+  --shadow-subtle: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
 }
 
 @layer base {
   body {
     background-color: var(--color-background);
-    color: #1A1A1A;
+    color: var(--color-text-main);
     font-family: var(--font-sans);
+    line-height: 1.5;
     -webkit-font-smoothing: antialiased;
+  }
+
+  h1, h2, h3, h4 {
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: -0.025em;
+  }
+
+  /* Utility classes for the system */
+  .transition-system {
+    transition-property: all;
+    transition-timing-function: var(--ease-standard);
+    transition-duration: var(--duration-base);
+  }
+
+  /* Progress indicator base (skeleton) */
+  .skeleton {
+    @apply bg-slate-200 animate-pulse rounded-md;
+  }
+
+  /* Constrain Razorpay modal to match app width */
+  .razorpay-container {
+    max-width: 450px !important;
+    margin: 0 auto !important;
+    left: 0 !important;
+    right: 0 !important;
   }
 }

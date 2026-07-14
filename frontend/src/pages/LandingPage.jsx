@@ -1,41 +1,89 @@
 import React from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { Leaf } from 'lucide-react';
+import { motion } from 'framer-motion';
+
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.1,
+      delayChildren: 0.2
+    }
+  },
+  exit: {
+    opacity: 0,
+    transition: { ease: 'easeInOut', duration: 0.2 }
+  }
+};
+
+const itemVariants = {
+  hidden: { y: 20, opacity: 0 },
+  visible: {
+    y: 0,
+    opacity: 1,
+    transition: {
+      duration: 0.5,
+      ease: [0.4, 0, 0.2, 1] // Ease-standard
+    }
+  }
+};
 
 export default function LandingPage() {
   const navigate = useNavigate();
 
   return (
-    <div className="min-h-screen flex flex-col justify-center items-center bg-background p-6">
-      <div className="flex-1 flex flex-col justify-center items-center text-center w-full max-w-md">
-        <div className="w-24 h-24 bg-primary text-white rounded-full flex items-center justify-center mb-6 shadow-lg">
-          <Leaf size={48} />
-        </div>
-        
-        <h1 className="text-4xl font-extrabold text-[#1A1A1A] mb-3">
-          CanteenConnect
-        </h1>
-        
-        <p className="text-xl text-[#6B7280] mb-10 font-medium">
-          Connecting waste to purpose.
-        </p>
-
-        <button 
-          onClick={() => navigate('/select-role')}
-          className="w-full bg-primary hover:bg-accent text-white font-semibold py-4 px-6 rounded-xl shadow-md transition-all active:scale-95 text-lg"
+    <motion.div 
+      className="min-h-screen flex flex-col justify-center items-center bg-background px-8"
+      variants={containerVariants}
+      initial="hidden"
+      animate="visible"
+      exit="exit"
+    >
+      <div className="flex-1 flex flex-col justify-center items-center text-center w-full">
+        <motion.div 
+          className="w-20 h-20 bg-primary text-white rounded-xl flex items-center justify-center mb-8 shadow-sm"
+          variants={itemVariants}
         >
-          Get Started
-        </button>
+          <Leaf size={40} />
+        </motion.div>
+        
+        <motion.h1 
+          className="text-2xl font-bold text-text-main mb-4 tracking-tight"
+          variants={itemVariants}
+        >
+          CanteenConnect
+        </motion.h1>
+        
+        <motion.p 
+          className="text-base text-text-muted mb-12 max-w-[280px] leading-relaxed"
+          variants={itemVariants}
+        >
+          Efficiently redirect surplus food from canteens to specialized NGOs and processors.
+        </motion.p>
+
+        <motion.div variants={itemVariants} className="w-full">
+          <button 
+            onClick={() => navigate('/select-role')}
+            className="w-full bg-primary hover:bg-primary-dark text-white font-bold py-4 px-6 rounded-lg shadow-sm transition-system active:scale-[0.98] text-sm uppercase tracking-widest border border-transparent"
+          >
+            Get Started
+          </button>
+        </motion.div>
       </div>
 
-      <div className="pb-6 w-full text-center">
-        <p className="text-[#6B7280]">
+      <motion.div 
+        className="pb-10 w-full text-center"
+        variants={itemVariants}
+      >
+        <p className="text-sm text-text-muted font-medium">
           Already have an account?{' '}
-          <Link to="/login" className="text-primary font-semibold hover:underline">
+          <Link to="/login" className="text-primary font-bold hover:underline transition-system">
             Login
           </Link>
         </p>
-      </div>
-    </div>
+      </motion.div>
+    </motion.div>
   );
 }
