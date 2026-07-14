@@ -3,7 +3,7 @@ WORKDIR /frontend
 COPY frontend/package.json frontend/package-lock.json ./
 RUN npm install --legacy-peer-deps
 COPY frontend/ ./
-ARG VITE_BACKEND_URL
+ARG VITE_BACKEND_URL=https://canteenconnect.onrender.com
 ENV VITE_BACKEND_URL=$VITE_BACKEND_URL
 RUN npm run build
 
