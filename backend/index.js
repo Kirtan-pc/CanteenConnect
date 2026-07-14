@@ -1,4 +1,5 @@
 const express = require('express');
+const path = require('path');
 const cors = require('cors');
 const multer = require('multer');
 const { db, admin } = require('./firebase');
@@ -12,6 +13,7 @@ const PORT = process.env.PORT || 4000;
 
 app.use(cors());
 app.use(express.json({ limit: '5mb' }));
+app.use(express.static(path.join(__dirname, 'public')));
 
 // ─────────────────────────────────────────────────────────────────────────────
 // In-memory rate limiter — no extra packages needed
@@ -458,6 +460,10 @@ cron.schedule('*/5 * * * *', async () => {
 
 process.on('uncaughtException', (err) => {
   console.error('Fatal Exception:', err);
+});
+
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
 app.listen(PORT, () => {
